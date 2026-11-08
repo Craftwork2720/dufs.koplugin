@@ -1,0 +1,97 @@
+name: Release
+
+# Push a tag like "v1.0.0" to build dufs.koplugin.zip and attach it to a
+# GitHub Release. dufs/updater.lua looks for an asset named exactly
+# "dufs.koplugin.zip" on the latest release.
+#
+# The built asset is the one the updater downloads. Do not switch the updater
+# to GitHub's source archive: that is a different file from the one CI built.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # A tag with a hyphen after the version is a development build. The
+      # prerelease flag makes /releases/latest skip it, so installed copies
+      # never see it.
+      - name: Decide whether this tag is a prerelease
+        id: kind
+        run: |
+          case "$GITHUB_REF_NAME" in
+            *-*) prerelease=true ;;
+            *)   prerelease=false ;;
+          esac
+          echo "prerelease=$prerelease" >> "$GITHUB_OUTPUT"
+          echo "Tag $GITHUB_REF_NAME -> prerelease=$prerelease"
+
+      # The updater compares releases against _meta.lua's installed version.
+      # A stale version there makes every check report "up to date" forever.
+      - name: Check that _meta.lua version matches the tag
+        run: |
+          tag_version="${GITHUB_REF_NAME#v}"
+          meta_version=$(sed -n 's/^[[:space:]]*version[[:space:]]*=[[:space:]]*"\([^"]*\)".*/\1/p' _meta.lua | head -n 1)
+          manifest_version=$(jq -r '.packages[0].version' manifest.json)
+          web_version=$(sed -n 's/^const APP_VERSION = "\([^"]*\)".*/\1/p' assets/index.js | head -n 1)
+          html_version=$(sed -n 's/.*index\.js?v=\([^"]*\)".*/\1/p' assets/index.html | head -n 1)
+          echo "Tag version:       $tag_version"
+          echo "_meta.lua version: $meta_version"
+          echo "manifest version:  $manifest_version"
+          echo "web UI version:    $web_version"
+          echo "HTML asset version: $html_version"
+          if [ -z "$meta_version" ]; then
+            echo "::error::_meta.lua has no version field."
+            exit 1
+          fi
+          if [ "$tag_version" != "$meta_version" ]; then
+            echo "::error::Tag ($tag_version) does not match _meta.lua version ($meta_version). Bump _meta.lua before tagging."
+            exit 1
+          fi
+          if [ "$tag_version" != "$manifest_version" ]; then
+            echo "::error::Tag ($tag_version) does not match manifest.json version ($manifest_version). Bump manifest.json before tagging."
+            exit 1
+          fi
+          if [ "$tag_version" != "$web_version" ]; then
+            echo "::error::Tag ($tag_version) does not match APP_VERSION in assets/index.js ($web_version). Bump the web UI version before tagging."
+            exit 1
+          fi
+          if [ "$tag_version" != "$html_version" ]; then
+            echo "::error::Tag ($tag_version) does not match the ?v= asset version in assets/index.html ($html_version). Bump the asset URLs before tagging."
+            exit 1
+          fi
+          for asset in index.css i18n.js covers.js index.js; do
+            if ! grep -Fq "${asset}?v=${tag_version}" assets/index.html; then
+              echo "::error::assets/index.html does not reference ${asset}?v=${tag_version}."
+              exit 1
+            fi
+          done
+
+      # Stage the tree so the archive contains dufs.koplugin/ at its root, and
+      # keep developer files out of the device download. LICENSE and the
+      # third-party licence directory travel with the AGPL-licensed plugin.
+      - name: Build plugin zip
+        run: |
+          stage="$RUNNER_TEMP/stage"
+          mkdir -p "$stage/dufs.koplugin"
+          cp -r _meta.lua main.lua LICENSE assets bin dufs licenses "$stage/dufs.koplugin/"
+          cd "$stage"
+          zip -r "$GITHUB_WORKSPACE/dufs.koplugin.zip" dufs.koplugin \
+            -x "*.git*" -x "*/.DS_Store"
+          unzip -l "$GITHUB_WORKSPACE/dufs.koplugin.zip"
+
+      - name: Create release
+        uses: softprops/action-gh-release@v3
+        with:
+          # Keep this name in sync with ASSET_NAME in dufs/updater.lua.
+          prerelease: ${{ steps.kind.outputs.prerelease }}
+          files: dufs.koplugin.zip
+          generate_release_notes: true

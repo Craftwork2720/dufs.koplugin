@@ -1,0 +1,6 @@
+PDF.js 6.5.438
+https://github.com/mozilla/pdf.js
+
+PDF.js is distributed under the Apache License 2.0 (LICENSE).
+The bundled standard fonts and CMaps carry their own notices:
+LICENSE_FOXIT, LICENSE_LIBERATION and CMAPS_LICENSE.

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="dufs-assets-prefix" content="__ASSETS_PREFIX__" />
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=?noscript">
+  </noscript>
+  <link rel="icon" type="image/svg+xml" sizes="any" href="__ASSETS_PREFIX__favicon.svg?v=2">
+  <link rel="icon" type="image/x-icon" href="__ASSETS_PREFIX__favicon.ico?v=2">
+  <link rel="stylesheet" href="__ASSETS_PREFIX__index.css?v=1.0.0">
+  <title>Dufs</title>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./" id="brand" aria-label="Dufs" title="Root" data-i18n-title="Root">
+        <span class="brand-mark" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2" /><rect width="20" height="8" x="2" y="14" rx="2" ry="2" /><line x1="6" x2="6.01" y1="6" y2="6" /><line x1="6" x2="6.01" y1="18" y2="18" /></svg>
+        </span>
+        <span class="brand-name">Dufs</span>
+      </a>
+
+      <nav class="breadcrumb" aria-label="Breadcrumb" data-i18n-aria-label="Breadcrumb"></nav>
+
+      <form class="search hidden" id="search-form" role="search">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></svg>
+        <input id="search" name="q" type="search" placeholder="Search files and folders" autocomplete="off" spellcheck="false" aria-label="Search files and folders" data-i18n-placeholder="Search files and folders" data-i18n-aria-label="Search files and folders">
+        <button type="button" class="search-clear hidden" id="search-clear" aria-label="Clear search" data-i18n-aria-label="Clear search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+        </button>
+        <input type="submit" hidden>
+      </form>
+
+      <div class="topbar-actions">
+        <label class="btn btn-primary upload-file hidden" for="file" title="Upload files" aria-label="Upload files" data-i18n-title="Upload files" data-i18n-aria-label="Upload files">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12" /><path d="m17 8-5-5-5 5" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></svg>
+          <span class="btn-text" data-i18n="Upload">Upload</span>
+        </label>
+        <input type="file" id="file" name="file" multiple hidden>
+
+        <button type="button" class="btn btn-ghost btn-icon new-folder hidden" title="New folder" aria-label="New folder" data-i18n-title="New folder" data-i18n-aria-label="New folder">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10v6" /><path d="M9 13h6" /><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" /></svg>
+        </button>
+        <button type="button" class="btn btn-ghost btn-icon new-file hidden" title="New file" aria-label="New file" data-i18n-title="New file" data-i18n-aria-label="New file">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M9 15h6" /><path d="M12 18v-6" /></svg>
+        </button>
+        <div class="view-switch hidden" role="group" aria-label="View mode" data-i18n-aria-label="View mode">
+          <button type="button" class="view-btn" data-view="list" title="List view" aria-label="List view" aria-pressed="true" data-i18n-title="List view" data-i18n-aria-label="List view">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13" /><path d="M8 12h13" /><path d="M8 18h13" /><path d="M3 6h.01" /><path d="M3 12h.01" /><path d="M3 18h.01" /></svg>
+          </button>
+          <button type="button" class="view-btn" data-view="grid" title="Grid view" aria-label="Grid view" aria-pressed="false" data-i18n-title="Grid view" data-i18n-aria-label="Grid view">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1" /><rect width="7" height="7" x="14" y="3" rx="1" /><rect width="7" height="7" x="14" y="14" rx="1" /><rect width="7" height="7" x="3" y="14" rx="1" /></svg>
+          </button>
+        </div>
+
+        <button type="button" class="btn btn-ghost login-btn hidden" title="Sign in" aria-label="Sign in" data-i18n-title="Sign in" data-i18n-aria-label="Sign in">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 17 5-5-5-5" /><path d="M15 12H3" /><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /></svg>
+          <span class="btn-text" data-i18n="Sign in">Sign in</span>
+        </button>
+
+        <button type="button" class="btn btn-ghost btn-icon more-btn" id="more-btn" title="More actions" aria-label="More actions" aria-haspopup="menu" data-i18n-title="More actions" data-i18n-aria-label="More actions">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="index-page hidden" aria-label="Files" data-i18n-aria-label="Files">
+      <div class="transfers hidden" id="transfers" role="region" aria-label="Uploads" data-i18n-aria-label="Uploads">
+        <div class="transfers-head">
+          <span class="transfers-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12" /><path d="m17 8-5-5-5 5" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></svg>
+          </span>
+          <span class="transfers-title" data-i18n="Uploads">Uploads</span>
+          <span class="transfers-status" id="transfers-status"></span>
+        </div>
+        <div class="transfers-progress" id="transfers-progress" role="progressbar" aria-label="Overall upload progress" data-i18n-aria-label="Overall upload progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="transfers-progress-fill" id="transfers-progress-fill"></div>
+        </div>
+        <div class="transfers-list" id="transfers-list">
+          <div class="transfers-active" id="transfers-active"></div>
+          <div class="transfers-failed hidden" id="transfers-failed"></div>
+          <div class="transfers-queue hidden" id="transfers-queue">
+            <button type="button" class="transfers-queue-toggle" id="transfers-queue-toggle" aria-expanded="false" aria-controls="transfers-queue-list">
+              <svg class="transfers-queue-chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+              <span class="transfers-queue-label" id="transfers-queue-label"></span>
+            </button>
+            <div class="transfers-queue-list hidden" id="transfers-queue-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viewbar">
+        <p class="item-count" id="item-count" aria-live="polite"></p>
+        <div class="grid-sort hidden" id="grid-sort"></div>
+      </div>
+
+      <div class="empty hidden" id="empty">
+        <div class="empty-icon" id="empty-icon" aria-hidden="true"></div>
+        <h1 class="empty-title" id="empty-title"></h1>
+        <p class="empty-desc" id="empty-desc"></p>
+        <button type="button" class="btn btn-primary hidden" id="empty-action"></button>
+      </div>
+
+      <div class="listing hidden" id="listing" data-view="list">
+        <div class="listing-head" id="listing-head"></div>
+        <div class="listing-body" id="listing-body" role="list" aria-label="Files and folders" data-i18n-aria-label="Files and folders"></div>
+      </div>
+
+      <aside class="detail-pane hidden" id="detail-pane" aria-label="Preview" data-i18n-aria-label="Preview"></aside>
+    </section>
+
+    <section class="editor-page hidden" aria-label="Editor" data-i18n-aria-label="Editor">
+      <div class="editor-card">
+        <div class="editor-head">
+          <div class="editor-file">
+            <span class="editor-icon" id="editor-icon" aria-hidden="true"></span>
+            <div class="editor-file-text">
+              <h1 class="editor-name" id="editor-name"></h1>
+              <p class="editor-sub" id="editor-sub"></p>
+            </div>
+          </div>
+          <div class="editor-actions">
+            <button type="button" class="btn btn-ghost rename-file hidden" title="Rename" aria-label="Rename file" data-i18n-title="Rename" data-i18n-aria-label="Rename file">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 21h8" /><path d="m15 5 4 4" /><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /></svg>
+              <span class="btn-text" data-i18n="Rename">Rename</span>
+            </button>
+            <button type="button" class="btn btn-ghost move-file hidden" title="Move" aria-label="Move file" data-i18n-title="Move" data-i18n-aria-label="Move file">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1" /><path d="M2 13h10" /><path d="m9 16 3-3-3-3" /></svg>
+              <span class="btn-text" data-i18n="Move">Move</span>
+            </button>
+            <button type="button" class="btn btn-ghost danger delete-file hidden" title="Delete" aria-label="Delete file" data-i18n-title="Delete" data-i18n-aria-label="Delete file">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+              <span class="btn-text" data-i18n="Delete">Delete</span>
+            </button>
+            <button type="button" class="btn btn-ghost edit-file hidden" title="Edit" aria-label="Edit file" data-i18n-title="Edit" data-i18n-aria-label="Edit file">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /><path d="m15 5 4 4" /></svg>
+              <span class="btn-text" data-i18n="Edit">Edit</span>
+            </button>
+            <a class="btn btn-ghost download hidden" aria-label="Download file" data-i18n-aria-label="Download file" download>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="m7 10 5 5 5-5" /></svg>
+              <span class="btn-text" data-i18n="Download">Download</span>
+            </a>
+            <button type="button" class="btn btn-primary save-btn hidden" aria-label="Save file" data-i18n-aria-label="Save file">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" /><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" /><path d="M7 3v4a1 1 0 0 0 1 1h7" /></svg>
+              <span class="btn-text" data-i18n="Save">Save</span>
+            </button>
+          </div>
+        </div>
+        <div class="editor-body">
+          <div class="not-editable hidden" id="not-editable"></div>
+          <div class="editor-frame hidden" id="editor-frame"></div>
+          <textarea id="editor" class="editor-textarea hidden" spellcheck="false" aria-label="File contents" data-i18n-aria-label="File contents"></textarea>
+        </div>
+        <div class="editor-foot hidden" id="editor-foot">
+          <span class="editor-status" id="editor-status" aria-live="polite"></span>
+          <span class="editor-hint" id="editor-hint" data-i18n="Ctrl+S to save">Ctrl+S to save</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="site-meta">
+        <span class="site-version" id="app-version">Dufs</span>
+        <span class="site-dot" id="dufs-engine-sep" aria-hidden="true" hidden>·</span>
+        <span class="site-engine" id="dufs-engine-version" hidden></span>
+      </div>
+      <div class="site-links">
+        <a class="site-link" href="https://github.com/Craftwork2720/dufs.koplugin" target="_blank" rel="noopener noreferrer" title="Dufs on GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg>
+          <span>GitHub</span>
+        </a>
+        <span class="site-dot" aria-hidden="true">·</span>
+        <a class="site-link kofi-link" href="https://ko-fi.com/craftwork2720" target="_blank" rel="noopener noreferrer" title="Support Dufs on Ko-fi">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></svg>
+          <span>Ko-fi</span>
+        </a>
+      </div>
+    </footer>
+  </main>
+
+  <div class="selectionbar hidden" id="selectionbar" role="region" aria-label="Selection actions" data-i18n-aria-label="Selection actions">
+    <span class="selection-count" id="selection-count" aria-live="polite"></span>
+    <div class="selection-actions">
+      <button type="button" class="selection-btn" data-selection-action="download" aria-label="Download selected" data-i18n-aria-label="Download selected">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="m7 10 5 5 5-5" /></svg>
+        <span data-i18n="Download">Download</span>
+      </button>
+      <button type="button" class="selection-btn" data-selection-action="move" aria-label="Move selected" data-i18n-aria-label="Move selected">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1" /><path d="M2 13h10" /><path d="m9 16 3-3-3-3" /></svg>
+        <span data-i18n="Move">Move</span>
+      </button>
+      <button type="button" class="selection-btn danger" data-selection-action="delete" aria-label="Delete selected" data-i18n-aria-label="Delete selected">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+        <span data-i18n="Delete">Delete</span>
+      </button>
+    </div>
+    <button type="button" class="selection-clear" id="selection-clear" aria-label="Clear selection" data-i18n-aria-label="Clear selection">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+    </button>
+  </div>
+
+  <div class="dropzone hidden" id="dropzone" aria-hidden="true">
+    <div class="dropzone-card">
+      <div class="dropzone-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12" /><path d="m17 8-5-5-5 5" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></svg>
+      </div>
+      <p class="dropzone-title" data-i18n="Drop files to upload">Drop files to upload</p>
+      <p class="dropzone-desc" data-i18n="Files and folders will be uploaded to this location.">Files and folders will be uploaded to this location.</p>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite" aria-relevant="additions"></div>
+  <div class="menu hidden" id="menu" role="menu" aria-label="Actions" data-i18n-aria-label="Actions"></div>
+
+  <template id="index-data">__INDEX_DATA__</template>
+  <script src="__ASSETS_PREFIX__i18n.js?v=1.0.0"></script>
+  <script src="__ASSETS_PREFIX__covers.js?v=1.0.0"></script>
+  <script src="__ASSETS_PREFIX__index.js?v=1.0.0"></script>
+</body>
+
+</html>

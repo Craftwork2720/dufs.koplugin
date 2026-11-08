@@ -1,0 +1,30 @@
+{
+    "schema_version": "1",
+    "repo": {
+        "id": "dufs",
+        "name": "Dufs Repository",
+        "url": "https://github.com/Craftwork2720/dufs.koplugin",
+        "icon_url": "https://raw.githubusercontent.com/Craftwork2720/dufs.koplugin/main/assets/icon.png"
+    },
+    "packages": [
+        {
+            "id": "dufs",
+            "name": "Dufs file server",
+            "version": "1.0.0",
+            "description": "Web file manager for KOReader with a custom UI: browse, upload, edit, download or delete files on your e-reader from your phone or computer, with WebDAV support.",
+            "author": "Craftwork2720",
+            "platforms": ["koreader"],
+            "category": "network",
+            "source": "https://github.com/Craftwork2720/dufs.koplugin",
+            "source_asset": "dufs.koplugin.zip",
+            "plugin_module": "dufs",
+            "readme_url": "https://raw.githubusercontent.com/Craftwork2720/dufs.koplugin/main/README.md",
+            "assets": [
+                {
+                    "asset": "dufs.koplugin.zip",
+                    "url": "https://github.com/Craftwork2720/dufs.koplugin/releases/latest/download/dufs.koplugin.zip"
+                }
+            ]
+        }
+    ]
+}

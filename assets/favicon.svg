@@ -1,0 +1,10 @@
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<!-- Dufs favicon in the KOReader accent colour; keep favicon.ico in sync. -->
+<!-- Server glyph derived from Lucide (ISC); see licenses/lucide/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="56" fill="#00a89c"/>
+  <rect x="48" y="58" width="160" height="58" rx="18" fill="#ffffff"/>
+  <rect x="48" y="140" width="160" height="58" rx="18" fill="#ffffff"/>
+  <circle cx="78" cy="87" r="11" fill="#00a89c"/>
+  <circle cx="78" cy="169" r="11" fill="#00a89c"/>
+</svg>
