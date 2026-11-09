@@ -26,7 +26,7 @@ var DATA;
 const PARAMS = Object.fromEntries(new URLSearchParams(window.location.search).entries());
 
 // Keep in sync with _meta.lua and manifest.json; the release workflow checks it.
-const APP_VERSION = "1.0.0";
+const APP_VERSION = "1.0.1";
 const MAX_SUBPATHS_COUNT = 1000;
 const MAX_VIEW_TEXT_SIZE = 1024 * 1024;
 const LIGHTBOX_SWIPE_THRESHOLD = 40;
