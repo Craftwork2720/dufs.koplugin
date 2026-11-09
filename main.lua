@@ -3,6 +3,7 @@
 local ButtonDialog = require("ui/widget/buttondialog")
 local DataStorage = require("datastorage")
 local Device = require("device")
+local Screen = Device.screen
 local Dispatcher = require("dispatcher")
 local InfoMessage = require("ui/widget/infomessage")
 local MultiInputDialog = require("ui/widget/multiinputdialog")
@@ -364,9 +365,15 @@ function Dufs:showAddressDialog(started)
         buttons[#buttons + 1] = {{
             text = label,
             callback = function()
+                -- Stable KOReader defaults to a 1px-per-module QR when no
+                -- size is given (Android included); pass the screen size so
+                -- the code fills the available width. Newer releases ignore
+                -- these fields and already use the full screen.
                 UIManager:show(QRMessage:new{
                     title = qr_title,
                     text = url,
+                    width = Screen:getWidth(),
+                    height = Screen:getHeight(),
                 })
             end,
         }}
