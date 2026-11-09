@@ -17,6 +17,14 @@ local socket = require("socket")
 local T = ffiutil.template
 local _ = require("gettext")
 
+-- The server needs to exec a bundled Linux binary and POSIX temp files.
+-- Android mounts plugin storage noexec, blocks exec of app-writable files
+-- (W^X) and has no /tmp, so the plugin cannot work there; skip loading it.
+if Device:isAndroid() then
+    logger.info("Dufs: not supported on Android, plugin not loading")
+    return { disabled = true }
+end
+
 -- QR support is optional: some KOReader builds lack qrencode.
 local has_qr, QRMessage = pcall(require, "ui/widget/qrmessage")
 if not has_qr then QRMessage = nil end
